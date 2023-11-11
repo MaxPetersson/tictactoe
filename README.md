@@ -1,4 +1,4 @@
 # tictactoe
-Let's hit it
+Let's hit it!
 
 Please follow GUIDELINES when coding.
