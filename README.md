@@ -1,4 +1,4 @@
 # tictactoe
 Let's hit it!
 
-Please follow GUIDELINES when coding.
+Please follow GUIDELINES when coding. Please
