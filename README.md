@@ -1,4 +1,9 @@
 # tictactoe
+TypeScript setup:
+
+https://www.typescripttutorial.net/typescript-tutorial/setup-typescript/
+
+
 Workflow:
 
 1. Visual studio Code - gå till Extensions.
