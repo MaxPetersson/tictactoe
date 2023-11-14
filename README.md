@@ -6,7 +6,7 @@ TypeScript compiler:
 3. Guide 2 har ett extra steg för dig som använder Windows, ifall du får ett visst felmeddelande.
 4. Skapa nya TS filer under src, eller gör dina ändringar i en befintlig .ts fil.
 5. Öppna repot med terminalen.
-6. Kör '$ tsc'. Dina filer har nu kompilerats till .js filer under build folern.
+6. Kör '$ tsc'. Dina filer har nu kompilerats till .js filer under en mapp kallad 'build' (inga .js filer under denna mappen spåras av git, pga merge conflict potential).
 7. Inludera .js filen i index.html och kör hårt!
 
 Mer info kan du hitta här:
