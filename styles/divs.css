@@ -3,6 +3,14 @@
     background-color: black;
     text-align: center;
   }
+  
+.activeDiv {
+  background-color: black;
+}
+
+.inactiveDiv {
+  background-color: white;
+}  
 
 .diceOutputDiv{
     float: right;
