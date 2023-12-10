@@ -1,0 +1,13 @@
+.gameSquare{
+    float: left;
+    width: 296px;
+    height: 296px;
+    border: solid 2px black;
+    background-color: white;
+  }
+
+.gameBoardContainer{
+    width: 900px;
+    height: 900px;
+    border: solid 5px black;
+}
