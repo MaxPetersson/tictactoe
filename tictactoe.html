@@ -8,12 +8,26 @@
     <link rel='stylesheet' type='text/css' media='screen' href='styles/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='gameboard/styles/divs.css'>
     <script src='main.js'></script>
+    <script src='build/gameboard/src/gameboard.js'></script>
 </head>
 <body>
     <div class="gameBoardContainer">
-        <div class="gameSquare"></div>
-        <div class="gameSquare"></div>
-        <div class="gameSquare"></div>
+        <div class="gameSquare">
+            <div class="outerCircle">
+                <div class="innerCircle"></div>
+            </div>
+        </div>
+        <div class="gameSquare">
+            <div class="crossRight"></div>
+            <div class="crossLeft"></div>
+        </div>
+        <div class="gameSquare">
+
+            <div class="outerCircle">
+                <div class="innerCircle"></div>
+            </div>
+
+        </div>
         <div class="gameSquare"></div>
         <div class="gameSquare"></div>
         <div class="gameSquare"></div>
@@ -21,5 +35,6 @@
         <div class="gameSquare"></div>
         <div class="gameSquare"></div>
     </div>
+    <script>setupGameSquares();</script>
 </body>
 </html>

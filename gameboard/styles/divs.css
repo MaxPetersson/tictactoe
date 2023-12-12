@@ -4,7 +4,42 @@
     height: 296px;
     border: solid 2px black;
     background-color: white;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outerCircle{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.innerCircle{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.crossRight{
+    width: 10px;
+    height: 250px;
+    background-color: black;
+    transform: rotate(45deg);
+    position: absolute;
+}
+
+.crossLeft{
+    width: 10px;
+    height: 250px;
+    background-color: black;
+    transform: rotate(-45deg);
+    position: absolute;
+}
 
 .gameBoardContainer{
     width: 900px;
