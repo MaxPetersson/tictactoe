@@ -1,6 +1,12 @@
 @import url("fonts.css");
-@import url("divs.css");
 
 body {
-    background-color: lightblue;
-  }
+  background-color: lightblue;
+}
+
+.mainPageDiv {
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  background-color: white;
+}

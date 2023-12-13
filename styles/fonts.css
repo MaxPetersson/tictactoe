@@ -1,10 +1,16 @@
 h1 {
-color: navy;
-margin-left: 200px;
-font-size: 50px;
+    color: navy;
+    margin-left: 200px;
+    font-size: 2em;
+}
+
+h2 {
+    color: black;
+    margin-left: 200px;
+    font-size: 2em;
 }
 
 p {
-color: green;
-font-size: 15px;
+    color: green;
+    font-size: 1em;
 }

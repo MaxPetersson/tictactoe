@@ -4,20 +4,18 @@ function generateRandomNumber(maximumDieRoll: number): string {
     return dieResult as unknown as string;
 };
 
-function delay(milliseconds: number){
+function delay(milliseconds: number) {
     return new Promise(resolve => {
         setTimeout(resolve, milliseconds);
     });
 };
 
 async function rollDie(dieParagraphId: string, maximumDieRoll: number): Promise<void> {
-        let dieParagraph = document.getElementById(dieParagraphId);
-        if(dieParagraph)
-        {
-            for(let i = 0; i < 15; i++)
-            {
-                await delay(100);
-                dieParagraph.innerHTML = generateRandomNumber(maximumDieRoll);
-            }
+    let dieParagraph = document.getElementById(dieParagraphId);
+    if (dieParagraph) {
+        for (let i = 0; i < 15; i++) {
+            await delay(100);
+            dieParagraph.innerHTML = generateRandomNumber(maximumDieRoll);
         }
+    }
 };

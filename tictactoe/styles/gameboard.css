@@ -1,4 +1,8 @@
-.gameSquare{
+body {
+    background-color: lightblue;
+}
+
+.gameSquare {
     float: left;
     width: 296px;
     height: 296px;
@@ -9,7 +13,7 @@
     align-items: center;
 }
 
-.outerCircle{
+.outerCircle {
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -18,14 +22,15 @@
     justify-content: center;
     align-items: center;
 }
-.innerCircle{
+
+.innerCircle {
     width: 180px;
     height: 180px;
     border-radius: 50%;
     background-color: white;
 }
 
-.crossRight{
+.crossRight {
     width: 10px;
     height: 250px;
     background-color: black;
@@ -33,7 +38,7 @@
     position: absolute;
 }
 
-.crossLeft{
+.crossLeft {
     width: 10px;
     height: 250px;
     background-color: black;
@@ -41,8 +46,10 @@
     position: absolute;
 }
 
-.gameBoardContainer{
+.gameBoardContainer {
     width: 900px;
+    margin-left: auto;
+    margin-right: auto;
     height: 900px;
     border: solid 5px black;
 }
