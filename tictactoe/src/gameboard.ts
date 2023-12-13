@@ -1,11 +1,21 @@
-function setupGameSquare(gameSquare: HTMLElement) {
+let nrOfSquares = 9;
+
+function createGameSquare(): HTMLDivElement {
+    let gameSquare = document.createElement('div') as HTMLDivElement
+    gameSquare.classList.add('gameSquare');
     gameSquare.addEventListener("mouseover", () => { gameSquare.style.backgroundColor = 'lightsalmon' });
     gameSquare.addEventListener("mouseleave", () => { gameSquare.style.backgroundColor = 'white' });
+
+    return gameSquare;
 }
 
-function setupGameSquares() {
-    const gameSquares = document.getElementsByClassName("gameSquare");
-    const gameSquareArray = Array.from(gameSquares);
+function renderGameBoard() {
+    let gameBoard = document.getElementsByClassName('gameBoardContainer')[0];
 
-    gameSquareArray.forEach(gameSquare => { setupGameSquare(gameSquare as HTMLElement); });
+    for (let i = 0; i < nrOfSquares; i++) {
+        let gameSquare = createGameSquare();
+        gameBoard.appendChild(gameSquare);
+    }
 }
+
+window.onload = renderGameBoard;
