@@ -7,12 +7,19 @@ function changeElementsBackgroundColor(element: HTMLDivElement, color: string): 
     element.style.backgroundColor = color;
 }
 
-function highlight(elementToHighlight: HTMLDivElement): void {
-    changeElementsBackgroundColor(elementToHighlight, 'lightSalmon');
+function changeGameSquareBackgroundColor(gameSquare: HTMLDivElement, color: string): void {
+    changeElementsBackgroundColor(gameSquare, color);
+    changeElementsBackgroundColor(gameSquare.getElementsByClassName('innerCircle')[0] as HTMLDivElement, color);
 }
 
-function unhighlight(elementToHighlight: HTMLDivElement): void {
-    changeElementsBackgroundColor(elementToHighlight, 'white');
+function highlight(event: Event) {
+    const gameSquare = event.currentTarget as HTMLDivElement;
+    changeGameSquareBackgroundColor(gameSquare, 'lightSalmon');
+}
+
+function unhighlight(event: Event) {
+    const gameSquare = event.currentTarget as HTMLDivElement;
+    changeGameSquareBackgroundColor(gameSquare, 'white');
 }
 
 function createX(): HTMLDivElement {
@@ -59,14 +66,8 @@ function createGameSquare(): HTMLDivElement {
     gameSquare.appendChild(x);
 
     // Mouseover
-    gameSquare.addEventListener("mouseover", () => {
-        highlight(gameSquare);
-        highlight(o.getElementsByClassName('innerCircle')[0] as HTMLDivElement);
-    });
-    gameSquare.addEventListener("mouseleave", () => {
-        unhighlight(gameSquare);
-        unhighlight(o.getElementsByClassName('innerCircle')[0] as HTMLDivElement);
-    });
+    gameSquare.addEventListener("mouseover", (event: Event) => { highlight(event) });
+    gameSquare.addEventListener("mouseleave", (event: Event) => { unhighlight(event) });
 
     // Click
     gameSquare.addEventListener("click", () => {
@@ -90,7 +91,6 @@ function renderGameBoard() {
         gameSquares[i] = createGameSquare();
         gameBoard.appendChild(gameSquares[i]);
     }
-
 }
 
 window.onload = renderGameBoard;
