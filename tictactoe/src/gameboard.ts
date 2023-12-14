@@ -1,6 +1,7 @@
 let nrOfSquares: number = 9;
 let gameSquares: Array<HTMLDivElement> = new Array(nrOfSquares);
 let gameBoard: HTMLDivElement;
+let drawX: boolean = true;
 
 function changeElementsBackgroundColor(element: HTMLDivElement, color: string): void {
     element.style.backgroundColor = color;
@@ -69,8 +70,14 @@ function createGameSquare(): HTMLDivElement {
 
     // Click
     gameSquare.addEventListener("click", () => {
-        o.style.visibility = 'visible';
-        x.style.visibility = 'visible';
+        if (drawX) {
+            x.style.visibility = 'visible';
+        }
+        else {
+            o.style.visibility = 'visible';
+        }
+
+        drawX = !drawX;
     });
 
     return gameSquare;
