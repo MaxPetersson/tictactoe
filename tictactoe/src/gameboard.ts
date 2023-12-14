@@ -2,7 +2,19 @@ let nrOfSquares: number = 9;
 let gameSquares: Array<HTMLDivElement> = new Array(nrOfSquares);
 let gameBoard: HTMLDivElement;
 
-function createX(): HTMLDivElement{
+function changeElementsBackgroundColor(element: HTMLDivElement, color: string): void {
+    element.style.backgroundColor = color;
+}
+
+function highlight(elementToHighlight: HTMLDivElement): void {
+    changeElementsBackgroundColor(elementToHighlight, 'lightSalmon');
+}
+
+function unhighlight(elementToHighlight: HTMLDivElement): void {
+    changeElementsBackgroundColor(elementToHighlight, 'white');
+}
+
+function createX(): HTMLDivElement {
     let xRight = document.createElement('div') as HTMLDivElement
     xRight.classList.add('crossRight');
 
@@ -18,7 +30,7 @@ function createX(): HTMLDivElement{
     return x;
 }
 
-function createO(): HTMLDivElement{
+function createO(): HTMLDivElement {
     let innerO = document.createElement('div') as HTMLDivElement
     innerO.classList.add('innerCircle');
 
@@ -45,19 +57,18 @@ function createGameSquare(): HTMLDivElement {
     let x = createX()
     gameSquare.appendChild(x);
 
-
     // Mouseover
-    gameSquare.addEventListener("mouseover", () => { 
-        gameSquare.style.backgroundColor = 'lightsalmon';
-        (o.getElementsByClassName('innerCircle')[0] as HTMLDivElement).style.backgroundColor = 'lightsalmon';
+    gameSquare.addEventListener("mouseover", () => {
+        highlight(gameSquare);
+        highlight(o.getElementsByClassName('innerCircle')[0] as HTMLDivElement);
     });
     gameSquare.addEventListener("mouseleave", () => {
-        gameSquare.style.backgroundColor = 'white';
-        (o.getElementsByClassName('innerCircle')[0] as HTMLDivElement).style.backgroundColor = 'white';
+        unhighlight(gameSquare);
+        unhighlight(o.getElementsByClassName('innerCircle')[0] as HTMLDivElement);
     });
 
     // Click
-    gameSquare.addEventListener("click", () => { 
+    gameSquare.addEventListener("click", () => {
         o.style.visibility = 'visible';
         x.style.visibility = 'visible';
     });
