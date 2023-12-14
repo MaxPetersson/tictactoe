@@ -46,6 +46,15 @@ body {
     position: absolute;
 }
 
+.symbolContainer {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .gameBoardContainer {
     width: 900px;
     margin-left: auto;
