@@ -3,6 +3,10 @@ let gameSquares: Array<HTMLDivElement> = new Array(nrOfSquares);
 let gameBoard: HTMLDivElement;
 let drawX: boolean = true;
 
+const mouseOverEventListener: EventListener = (event: Event) => { highlight(event) };
+const mouseLeaveEventListener: EventListener = (event: Event) => { unhighlight(event) };
+const clickEventListener: EventListener = (event: Event) => { playTurn(event) };
+
 function changeElementsBackgroundColor(element: HTMLDivElement, color: string): void {
     element.style.backgroundColor = color;
 }
@@ -19,9 +23,27 @@ function highlight(event: Event) {
 
 function unhighlight(event: Event) {
     const gameSquare = event.currentTarget as HTMLDivElement;
-    changeGameSquareBackgroundColor(gameSquare, 'white');
+    changeGameSquareBackgroundColor(gameSquare, 'white');ßß
 }
 
+function playTurn(event: Event) {
+    const gameSquare = event.currentTarget as HTMLDivElement;
+    const symbolContainers = gameSquare.getElementsByClassName('symbolContainer');
+    if (drawX) {
+        (symbolContainers[1] as HTMLDivElement).style.visibility = 'visible';
+    }
+    else {
+        (symbolContainers[0] as HTMLDivElement).style.visibility = 'visible';
+    }
+
+    drawX = !drawX;
+
+    unhighlight(event)
+    gameSquare.removeEventListener("mouseover", mouseOverEventListener);
+    gameSquare.removeEventListener("mouseleave", mouseLeaveEventListener);
+    gameSquare.removeEventListener("click", clickEventListener);
+
+}
 function createX(): HTMLDivElement {
     let xRight = document.createElement('div') as HTMLDivElement
     xRight.classList.add('crossRight');
@@ -66,20 +88,11 @@ function createGameSquare(): HTMLDivElement {
     gameSquare.appendChild(x);
 
     // Mouseover
-    gameSquare.addEventListener("mouseover", (event: Event) => { highlight(event) });
-    gameSquare.addEventListener("mouseleave", (event: Event) => { unhighlight(event) });
+    gameSquare.addEventListener("mouseover", mouseOverEventListener);
+    gameSquare.addEventListener("mouseleave", mouseLeaveEventListener);
 
     // Click
-    gameSquare.addEventListener("click", () => {
-        if (drawX) {
-            x.style.visibility = 'visible';
-        }
-        else {
-            o.style.visibility = 'visible';
-        }
-
-        drawX = !drawX;
-    });
+    gameSquare.addEventListener("click", clickEventListener);
 
     return gameSquare;
 }
