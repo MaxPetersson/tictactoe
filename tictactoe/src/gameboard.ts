@@ -23,7 +23,7 @@ function highlight(event: Event) {
 
 function unhighlight(event: Event) {
     const gameSquare = event.currentTarget as HTMLDivElement;
-    changeGameSquareBackgroundColor(gameSquare, 'white');ßß
+    changeGameSquareBackgroundColor(gameSquare, 'white');
 }
 
 function playTurn(event: Event) {
