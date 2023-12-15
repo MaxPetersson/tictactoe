@@ -1,8 +1,6 @@
 let nrsInRow: number = 3;
-let nrOfSquares: number = nrsInRow * nrsInRow;
-let gameSquares: Array<HTMLDivElement> = new Array(nrOfSquares);
-let gameBoard: HTMLDivElement;
-let drawX: boolean = true;
+let numberOfSquares: number = nrsInRow * nrsInRow;
+let gameBoard: GameBoard;
 
 class GamePiece {
     pieceDiv: HTMLDivElement;
@@ -12,44 +10,99 @@ class GamePiece {
     }
 }
 
-const mouseOverEventListener: EventListener = (event: Event) => { highlight(event) };
-const mouseLeaveEventListener: EventListener = (event: Event) => { unhighlight(event) };
-const clickEventListener: EventListener = (event: Event) => { playTurn(event) };
+class GameSquare {
+    constructor() {
+        this.gameSquare = document.createElement('div') as HTMLDivElement
+        this.gameSquare.classList.add('gameSquare');
+
+        this.mouseOver = () => { this.highlight() };
+
+        this.mouseLeave = () => { this.unhighlight() };
+
+        this.click = () => {
+            this.removeEventListeners();
+            this.unhighlight();
+            gameBoard.playTurn(this.gameSquare);
+        };
+
+        this.addEventListeners();
+    }
+
+    highlight(): void {
+        changeElementsBackgroundColor(this.gameSquare, 'lightSalmon');
+    }
+
+    unhighlight(): void {
+        changeElementsBackgroundColor(this.gameSquare, 'white');
+    }
+
+    removeEventListeners(): void {
+        this.gameSquare.removeEventListener("mouseover", this.mouseOver);
+        this.gameSquare.removeEventListener("mouseleave", this.mouseLeave);
+        this.gameSquare.removeEventListener("click", this.click);
+    }
+
+    addEventListeners(): void {
+        this.gameSquare.addEventListener("mouseover", this.mouseOver);
+        this.gameSquare.addEventListener("mouseleave", this.mouseLeave);
+        this.gameSquare.addEventListener("click", this.click);
+    }
+
+    resetGameSquare(): void{
+        let gamePiece = this.gameSquare.firstChild;
+        if(gamePiece)
+        {
+            this.gameSquare.removeChild(gamePiece);
+            this.addEventListeners();
+        }
+    }
+
+    gameSquare: HTMLDivElement;
+    mouseOver: EventListener;
+    mouseLeave: EventListener;
+    click: EventListener;
+}
+
+class GameBoard {
+    constructor(gameBoard_: HTMLDivElement, boardSize_: number) {
+        this.gameBoard = gameBoard_;
+        this.boardSize = boardSize_;
+        this.gameSquares = new Array(boardSize_)
+        this.drawX = true;
+    }
+
+    init() {
+        for (let i = 0; i < this.boardSize; i++) {
+            this.gameSquares[i] = new GameSquare;
+            this.gameBoard.appendChild(this.gameSquares[i].gameSquare);
+        }
+
+    }
+
+    reset() {
+        this.gameSquares.forEach((gameSquare:GameSquare) => gameSquare.resetGameSquare());
+        this.drawX = true;
+    }
+
+    playTurn(gameSquare: HTMLDivElement) {
+        if (this.drawX) {
+            gameSquare.appendChild(createGamePiece('x').pieceDiv);
+        }
+        else {
+            gameSquare.appendChild(createGamePiece('o').pieceDiv);
+        }
+    
+        this.drawX = !this.drawX;
+    }
+
+    gameBoard: HTMLDivElement;
+    boardSize: number;
+    gameSquares: Array<GameSquare>;
+    drawX: boolean;
+}
 
 function changeElementsBackgroundColor(element: HTMLDivElement, color: string): void {
     element.style.backgroundColor = color;
-}
-
-function changeGameSquareBackgroundColor(gameSquare: HTMLDivElement, color: string): void {
-    changeElementsBackgroundColor(gameSquare, color);
-}
-
-function highlight(event: Event) {
-    const gameSquare = event.currentTarget as HTMLDivElement;
-    changeGameSquareBackgroundColor(gameSquare, 'lightSalmon');
-}
-
-function unhighlight(event: Event) {
-    const gameSquare = event.currentTarget as HTMLDivElement;
-    changeGameSquareBackgroundColor(gameSquare, 'white');
-}
-
-function playTurn(event: Event) {
-    const gameSquare = event.currentTarget as HTMLDivElement;
-
-    if (drawX) {
-        gameSquare.appendChild(createGamePiece('x').pieceDiv);
-    }
-    else {
-        gameSquare.appendChild(createGamePiece('o').pieceDiv);
-    }
-
-    drawX = !drawX;
-
-    unhighlight(event)
-    gameSquare.removeEventListener("mouseover", mouseOverEventListener);
-    gameSquare.removeEventListener("mouseleave", mouseLeaveEventListener);
-    gameSquare.removeEventListener("click", clickEventListener);
 }
 
 function fetchImg(src: string): HTMLImageElement {
@@ -63,7 +116,7 @@ function fetchImg(src: string): HTMLImageElement {
 
 function createGamePiece(piece: string): GamePiece {
     let pieceDiv = document.createElement('div') as HTMLDivElement
-    
+
     if (piece == 'x') {
         pieceDiv.appendChild(fetchImg("x.jpg"));
     }
@@ -74,27 +127,10 @@ function createGamePiece(piece: string): GamePiece {
     return new GamePiece(pieceDiv);
 }
 
-function createGameSquare(): HTMLDivElement {
-    let gameSquare = document.createElement('div') as HTMLDivElement
-    gameSquare.classList.add('gameSquare');
+function init() {
+    gameBoard = new GameBoard(document.getElementsByClassName('gameBoardContainer')[0] as HTMLDivElement, numberOfSquares);
 
-    // Mouseover
-    gameSquare.addEventListener("mouseover", mouseOverEventListener);
-    gameSquare.addEventListener("mouseleave", mouseLeaveEventListener);
-
-    // Click
-    gameSquare.addEventListener("click", clickEventListener);
-
-    return gameSquare;
+    gameBoard.init();
 }
 
-function renderGameBoard() {
-    gameBoard = document.getElementsByClassName('gameBoardContainer')[0] as HTMLDivElement;
-
-    for (let i = 0; i < nrOfSquares; i++) {
-        gameSquares[i] = createGameSquare();
-        gameBoard.appendChild(gameSquares[i]);
-    }
-}
-
-window.onload = renderGameBoard;
+window.onload = init;
