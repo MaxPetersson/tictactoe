@@ -1,5 +1,5 @@
-let nrOfSquares: number = 9;
-let gameSquares: Array<HTMLDivElement> = new Array(nrOfSquares);
+let numbersInRow: number = 3;
+let gameSquares: Array<HTMLDivElement> = new Array(numbersInRow*numbersInRow);
 let gameBoard: HTMLDivElement;
 let drawX: boolean = true;
 
@@ -86,7 +86,7 @@ function createGameSquare(): HTMLDivElement {
 function renderGameBoard() {
     gameBoard = document.getElementsByClassName('gameBoardContainer')[0] as HTMLDivElement;
 
-    for (let i = 0; i < nrOfSquares; i++) {
+    for (let i = 0; i < numbersInRow*numbersInRow; i++) {
         gameSquares[i] = createGameSquare();
         gameBoard.appendChild(gameSquares[i]);
     }
