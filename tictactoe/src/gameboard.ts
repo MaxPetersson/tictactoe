@@ -13,7 +13,6 @@ function changeElementsBackgroundColor(element: HTMLDivElement, color: string): 
 
 function changeGameSquareBackgroundColor(gameSquare: HTMLDivElement, color: string): void {
     changeElementsBackgroundColor(gameSquare, color);
-    changeElementsBackgroundColor(gameSquare.getElementsByClassName('innerCircle')[0] as HTMLDivElement, color);
 }
 
 function highlight(event: Event) {
