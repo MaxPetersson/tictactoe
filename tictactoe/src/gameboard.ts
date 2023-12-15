@@ -28,12 +28,12 @@ function unhighlight(event: Event) {
 
 function playTurn(event: Event) {
     const gameSquare = event.currentTarget as HTMLDivElement;
-    const symbolContainers = gameSquare.getElementsByClassName('symbolContainer');
+
     if (drawX) {
-        (symbolContainers[1] as HTMLDivElement).style.visibility = 'visible';
+        gameSquare.appendChild(createX());
     }
     else {
-        (symbolContainers[0] as HTMLDivElement).style.visibility = 'visible';
+        gameSquare.appendChild(createO());
     }
 
     drawX = !drawX;
@@ -44,48 +44,32 @@ function playTurn(event: Event) {
     gameSquare.removeEventListener("click", clickEventListener);
 
 }
+
 function createX(): HTMLDivElement {
-    let xRight = document.createElement('div') as HTMLDivElement
-    xRight.classList.add('crossRight');
-
-    let xLeft = document.createElement('div') as HTMLDivElement
-    xLeft.classList.add('crossLeft');
-
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "../images/x.jpg");
+    elem.setAttribute("height", "200");
+    elem.setAttribute("width", "200");
     let x = document.createElement('div') as HTMLDivElement
-    x.classList.add('symbolContainer');
-    x.appendChild(xRight);
-    x.appendChild(xLeft);
-    x.style.visibility = 'hidden';
-
+    x.appendChild(elem);
+    x.classList.add('x');
     return x;
 }
 
 function createO(): HTMLDivElement {
-    let innerO = document.createElement('div') as HTMLDivElement
-    innerO.classList.add('innerCircle');
-
-    let outerO = document.createElement('div') as HTMLDivElement
-    outerO.classList.add('outerCircle');
-    outerO.appendChild(innerO);
-
+    var elem = document.createElement("img");
+    elem.setAttribute("src", "../images/o.jpg");
+    elem.setAttribute("height", "200");
+    elem.setAttribute("width", "200");
     let o = document.createElement('div') as HTMLDivElement
-    o.classList.add('symbolContainer');
-    o.appendChild(outerO);
-    o.style.visibility = 'hidden';
-
+    o.appendChild(elem);
+    o.classList.add('o');
     return o;
 }
 
 function createGameSquare(): HTMLDivElement {
     let gameSquare = document.createElement('div') as HTMLDivElement
     gameSquare.classList.add('gameSquare');
-
-    // X's and O's
-    let o = createO();
-    gameSquare.appendChild(o);
-
-    let x = createX()
-    gameSquare.appendChild(x);
 
     // Mouseover
     gameSquare.addEventListener("mouseover", mouseOverEventListener);
