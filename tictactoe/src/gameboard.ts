@@ -30,10 +30,10 @@ function playTurn(event: Event) {
     const gameSquare = event.currentTarget as HTMLDivElement;
 
     if (drawX) {
-        gameSquare.appendChild(createX());
+        gameSquare.appendChild(createGamePiece('x'));
     }
     else {
-        gameSquare.appendChild(createO());
+        gameSquare.appendChild(createGamePiece('o'));
     }
 
     drawX = !drawX;
@@ -45,26 +45,20 @@ function playTurn(event: Event) {
 
 }
 
-function createX(): HTMLDivElement {
-    var elem = document.createElement("img");
-    elem.setAttribute("src", "../images/x.jpg");
+function createGamePiece(piece: string): HTMLDivElement {
+    let elem = document.createElement("img");
+    if (piece == 'x') {
+        elem.setAttribute("src", "../images/x.jpg");
+    }
+    else {
+        elem.setAttribute("src", "../images/o.jpg");
+    }
     elem.setAttribute("height", "200");
     elem.setAttribute("width", "200");
-    let x = document.createElement('div') as HTMLDivElement
-    x.appendChild(elem);
-    x.classList.add('x');
-    return x;
-}
 
-function createO(): HTMLDivElement {
-    var elem = document.createElement("img");
-    elem.setAttribute("src", "../images/o.jpg");
-    elem.setAttribute("height", "200");
-    elem.setAttribute("width", "200");
-    let o = document.createElement('div') as HTMLDivElement
-    o.appendChild(elem);
-    o.classList.add('o');
-    return o;
+    let pieceDiv = document.createElement('div') as HTMLDivElement
+    pieceDiv.appendChild(elem);
+    return pieceDiv;
 }
 
 function createGameSquare(): HTMLDivElement {
