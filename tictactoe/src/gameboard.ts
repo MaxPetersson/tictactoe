@@ -4,10 +4,10 @@ let gameSquares: Array<HTMLDivElement> = new Array(nrOfSquares);
 let gameBoard: HTMLDivElement;
 let drawX: boolean = true;
 
-class GamePiece{
+class GamePiece {
     pieceDiv: HTMLDivElement;
 
-    constructor(_pieceDiv: HTMLDivElement){
+    constructor(_pieceDiv: HTMLDivElement) {
         this.pieceDiv = _pieceDiv;
     }
 }
@@ -50,24 +50,28 @@ function playTurn(event: Event) {
     gameSquare.removeEventListener("mouseover", mouseOverEventListener);
     gameSquare.removeEventListener("mouseleave", mouseLeaveEventListener);
     gameSquare.removeEventListener("click", clickEventListener);
+}
 
+function fetchImg(src: string): HTMLImageElement {
+    let imgElement = document.createElement("img");
+    imgElement.setAttribute("src", "../images/" + src);
+    imgElement.setAttribute("height", "200");
+    imgElement.setAttribute("width", "200");
+
+    return imgElement;
 }
 
 function createGamePiece(piece: string): GamePiece {
-    let elem = document.createElement("img");
+    let pieceDiv = document.createElement('div') as HTMLDivElement
+    
     if (piece == 'x') {
-        elem.setAttribute("src", "../images/x.jpg");
+        pieceDiv.appendChild(fetchImg("x.jpg"));
     }
     else {
-        elem.setAttribute("src", "../images/o.jpg");
+        pieceDiv.appendChild(fetchImg("o.jpg"));
     }
-    elem.setAttribute("height", "200");
-    elem.setAttribute("width", "200");
 
-    let pieceDiv = document.createElement('div') as HTMLDivElement
-    pieceDiv.appendChild(elem);
-    const pD = new GamePiece(pieceDiv);
-    return pD;
+    return new GamePiece(pieceDiv);
 }
 
 function createGameSquare(): HTMLDivElement {
