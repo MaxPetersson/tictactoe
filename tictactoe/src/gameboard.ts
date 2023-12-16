@@ -5,8 +5,26 @@ let gameBoard: GameBoard;
 class GamePiece {
     pieceDiv: HTMLDivElement;
 
-    constructor(_pieceDiv: HTMLDivElement) {
-        this.pieceDiv = _pieceDiv;
+    constructor() {
+        this.pieceDiv = document.createElement('div') as HTMLDivElement;
+    }
+
+    fetchImage(imageName: string): HTMLImageElement {
+        let imgElement = document.createElement("img");
+        imgElement.setAttribute("src", "../images/" + imageName);
+        imgElement.setAttribute("height", "200");
+        imgElement.setAttribute("width", "200");
+
+        return imgElement;
+    }
+
+    setGamePiece(piece: string): void {
+        if (piece == 'x') {
+            this.pieceDiv.appendChild(this.fetchImage("x.jpg"));
+        }
+        else {
+            this.pieceDiv.appendChild(this.fetchImage("o.jpg"));
+        }
     }
 }
 
@@ -22,7 +40,7 @@ class GameSquare {
         this.click = () => {
             this.removeEventListeners();
             this.unhighlight();
-            gameBoard.playTurn(this.gameSquare);
+            gameBoard.playTurn(this);
         };
 
         this.addEventListeners();
@@ -56,7 +74,18 @@ class GameSquare {
         }
     }
 
+    setGamePiece(gamePiece_: GamePiece): void {
+        this.gamePiece = gamePiece_;
+    }
+
+    renderGamePiece(): void {
+        if (this.gamePiece){
+            this.gameSquare.appendChild(this.gamePiece.pieceDiv);
+        }
+    }
+
     gameSquare: HTMLDivElement;
+    gamePiece!: GamePiece;
     mouseOver: EventListener;
     mouseLeave: EventListener;
     click: EventListener;
@@ -83,14 +112,17 @@ class GameBoard {
         this.drawX = true;
     }
 
-    playTurn(gameSquare: HTMLDivElement) {
+    playTurn(gameSquare: GameSquare) {
+        let gamePiece: GamePiece = new GamePiece();
         if (this.drawX) {
-            gameSquare.appendChild(createGamePiece('x').pieceDiv);
+            gamePiece.setGamePiece('x')
         }
         else {
-            gameSquare.appendChild(createGamePiece('o').pieceDiv);
+            gamePiece.setGamePiece('o')
         }
 
+        gameSquare.setGamePiece(gamePiece);
+        gameSquare.renderGamePiece();
         this.drawX = !this.drawX;
     }
 
@@ -102,28 +134,6 @@ class GameBoard {
 
 function changeElementsBackgroundColor(element: HTMLDivElement, color: string): void {
     element.style.backgroundColor = color;
-}
-
-function fetchImg(src: string): HTMLImageElement {
-    let imgElement = document.createElement("img");
-    imgElement.setAttribute("src", "../images/" + src);
-    imgElement.setAttribute("height", "200");
-    imgElement.setAttribute("width", "200");
-
-    return imgElement;
-}
-
-function createGamePiece(piece: string): GamePiece {
-    let pieceDiv = document.createElement('div') as HTMLDivElement
-
-    if (piece == 'x') {
-        pieceDiv.appendChild(fetchImg("x.jpg"));
-    }
-    else {
-        pieceDiv.appendChild(fetchImg("o.jpg"));
-    }
-
-    return new GamePiece(pieceDiv);
 }
 
 function init() {
