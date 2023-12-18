@@ -1,0 +1,26 @@
+{
+  "name": "tictactoe",
+  "version": "1.0.0",
+  "description": "A simple Tic Tac Toe.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxPetersson/tictactoe.git"
+  },
+  "keywords": [
+    "TicTacToe"
+  ],
+  "author": "MaxOscar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxPetersson/tictactoe/issues"
+  },
+  "homepage": "https://github.com/MaxPetersson/tictactoe#readme",
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^5.4.0-dev.20231218"
+  }
+}
