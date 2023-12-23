@@ -29,9 +29,11 @@ class GamePiece {
 }
 
 class GameSquare {
-    constructor() {
+    constructor(id_: number) {
         this.gameSquare = document.createElement('div') as HTMLDivElement
         this.gameSquare.classList.add('gameSquare');
+        this.isX = false;
+        this.isY = false;
 
         this.mouseOver = () => { this.highlight() };
 
@@ -48,6 +50,10 @@ class GameSquare {
 
     highlight(): void {
         changeElementsBackgroundColor(this.gameSquare, 'lightSalmon');
+    }
+
+    highlightVictory(): void {
+        changeElementsBackgroundColor(this.gameSquare, 'lightGreen');
     }
 
     highlightRainbow(): void {
@@ -127,6 +133,8 @@ class GameSquare {
 
     gameSquare: HTMLDivElement;
     gamePiece!: GamePiece;
+    isX: boolean;
+    isY: boolean;
     mouseOver: EventListener;
     mouseLeave: EventListener;
     click: EventListener;
@@ -142,7 +150,7 @@ class GameBoard {
 
     init() {
         for (let i = 0; i < this.boardSize; i++) {
-            this.gameSquares[i] = new GameSquare;
+            this.gameSquares[i] = new GameSquare(i);
             this.gameBoard.appendChild(this.gameSquares[i].gameSquare);
         }
 
@@ -157,14 +165,49 @@ class GameBoard {
         let gamePiece: GamePiece = new GamePiece();
         if (this.drawX) {
             gamePiece.setGamePiece('x')
+            gameSquare.isX = true;
         }
         else {
             gamePiece.setGamePiece('o')
+            gameSquare.isY = true;
         }
 
         gameSquare.setGamePiece(gamePiece);
         gameSquare.renderGamePiece();
+        if (this.calculateVictory()) {
+            this.gameSquares.forEach(element => {
+                element.removeEventListeners();
+            });
+        }
+        
         this.drawX = !this.drawX;
+    }
+
+    calculateRow(square1: number, square2: number, square3: number): boolean {
+
+        const yVictory: boolean = this.gameSquares[square1].isY && this.gameSquares[square2].isY && this.gameSquares[square3].isY;
+        const xVictory: boolean = this.gameSquares[square1].isX && this.gameSquares[square2].isX && this.gameSquares[square3].isX;
+        const isVictory: boolean = yVictory || xVictory;
+        if(isVictory)
+        {
+            this.gameSquares[square1].highlightVictory();
+            this.gameSquares[square2].highlightVictory();
+            this.gameSquares[square3].highlightVictory();
+        }
+        return isVictory;
+    }
+    
+    calculateVictory(): boolean {
+        let isVictory: boolean = false;
+        isVictory = isVictory || this.calculateRow(0,1,2);
+        isVictory = isVictory || this.calculateRow(3,4,5);
+        isVictory = isVictory || this.calculateRow(6,7,8);
+        isVictory = isVictory || this.calculateRow(0,3,6);
+        isVictory = isVictory || this.calculateRow(1,4,7);
+        isVictory = isVictory || this.calculateRow(2,5,8);
+        isVictory = isVictory || this.calculateRow(0,4,8);
+        isVictory = isVictory || this.calculateRow(2,4,6);
+        return isVictory;
     }
 
     gameBoard: HTMLDivElement;
