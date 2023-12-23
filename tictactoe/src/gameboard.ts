@@ -50,6 +50,47 @@ class GameSquare {
         changeElementsBackgroundColor(this.gameSquare, 'lightSalmon');
     }
 
+    highlightRainbow(): void {
+
+        const colorCode: number = Math.floor(Math.random() * (8));
+        let color: string;
+        switch(colorCode) {
+            case 1: {
+                color = 'red';
+                break;
+            }
+            case 2: {
+                color = 'orange';
+                break;
+            }
+            case 3: {
+                color = 'yellow';
+                break;
+            }
+            case 4: {
+                color = 'lime';
+                break;
+            }
+            case 5: {
+                color = 'blue';
+                break;
+            }
+            case 6: {
+                color = 'purple';
+                break;
+            }
+            case 7: {
+                color = 'magenta';
+                break;
+            }
+            default: {
+                color = 'pink';
+                break;
+            }
+        }
+        changeElementsBackgroundColor(this.gameSquare, color);
+    }
+
     unhighlight(): void {
         changeElementsBackgroundColor(this.gameSquare, 'white');
     }
